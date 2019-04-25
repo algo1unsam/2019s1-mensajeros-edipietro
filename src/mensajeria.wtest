@@ -1,22 +1,55 @@
 import mensajeros.*
-
+import destinos.*
+import transporte.*
 test "Roberto puede llevar un paquete que esta pago en un camion con acoplado"
 {
 	
+mensajeria.contratar(roberto)
+roberto.transporte(camion)
+roberto.pesoPropio(90)
+camion.cantidadAcoplados(2)
+camion.peso()
+paquete.estapago()
+assert.equals(true,paquete.estapago())
 }
 
 test "Neo con credito no puede llevar un paquete que esta pago a la matrix"
 {
-	
+mensajeria.contratar(neo)
+neo.tieneCredito()
+paquete.estapago()
+assert.equals(true,laMatrix.dejaPasar(neo))
 }
-/*test "La mensajeria tiene a neo como empleado si lo agregarmos" {
+test "La mensajeria tiene a neo como empleado si lo agregarmos" {
 	mensajeria.contratar(neo)
-	assert.that(mensajeria.mensajeros().contains(neo))
+	assert.that(mensajeria.mensajero().contains(neo))
 }
 
 
 test "Si neo es empleado, Hay un mensajero que puede enviar el paquete" {
 	mensajeria.contratar(neo)
-	paquete.pagar()
-	paquete.destino(matrix)
-	assert.that(mensajeria.mensajeros().contains(neo))}*/
+	paquete.estapago()
+	paquete.destino(laMatrix)
+	assert.that(mensajeria.mensajero().contains(neo))}
+	
+test "¿La mensajeria es grande?"	
+{
+	mensajeria.contratar(neo)
+	mensajeria.contratar(chuck)
+	mensajeria.contratar(roberto)
+	assert.equals(true,mensajeria.tieneMasDe2Mensajeros())
+}
+test "paquete puede ser entregado por el ultimo mensajero"{
+	mensajeria.contratar(neo)
+	mensajeria.contratar(chuck)
+	mensajeria.contratar(neo)
+	//laMatrix.dejaPasar(roberto)
+	assert.equals(true,mensajeria.paquetePuedeSerEntregadoXPrimero(laMatrix))
+}
+
+test "peso del ultimo mensajero"{
+    mensajeria.contratar(roberto)
+	mensajeria.contratar(chuck)
+	mensajeria.contratar(neo)
+	assert.equals(0,mensajeria.pesoDelUltimo())
+}
