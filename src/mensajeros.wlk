@@ -1,13 +1,13 @@
 import destinos.*
 import transporte.*
 object mensajeria {
-	var mensajero=#{}
+	var mensajero=[]
 method contratar(alguien) { mensajero.add(alguien) 	}
 method despedir(alguien){mensajero.remove(alguien)}
 method despedirAtodos(){mensajero.clear()}
 method tieneMasDe2Mensajeros(){	return(mensajero.size()>2)}
-method paquetePuedeSerEntregadoXPrimero(destino){return mensajero.forEach{destino_ => destino.dejaPasar(mensajero.first())}}
-method pesoDelUltimo(){(mensajero.last()).peso()}
+method paquetePuedeSerEntregadoXPrimero(destino){return destino.dejaPasar(mensajero.first())}
+method pesoDelUltimo(){return mensajero.last().peso()}
 }
 object paquete{
 	var property estapago=true
